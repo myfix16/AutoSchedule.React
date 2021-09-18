@@ -1,7 +1,7 @@
 import { Space } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined,TeamOutlined } from '@ant-design/icons';
 import React from 'react';
-import { useModel, SelectLang } from 'umi';
+import { useModel, SelectLang,history } from 'umi';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
@@ -22,7 +22,7 @@ const GlobalHeaderRight = () => {
 
   return (
     <Space className={className}>
-      <HeaderSearch
+      {/* <HeaderSearch
         className={`${styles.action} ${styles.search}`}
         placeholder="站内搜索"
         defaultValue="umi ui"
@@ -46,17 +46,18 @@ const GlobalHeaderRight = () => {
         ]} // onSearch={value => {
         //   console.log('input', value);
         // }}
-      />
+      /> */}
       <span
         className={styles.action}
         onClick={() => {
-          window.open('https://pro.ant.design/docs/getting-started');
+          // window.open('https://pro.ant.design/docs/getting-started');
+          history.push("./about")
         }}
       >
-        <QuestionCircleOutlined />
+        <TeamOutlined /> <span style={{marginLeft: "1rem"}}>About Us</span>
       </span>
-      <Avatar />
-      <SelectLang className={styles.action} />
+ 
+      {/* <SelectLang className={styles.action} /> */}
     </Space>
   );
 };
