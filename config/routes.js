@@ -6,11 +6,11 @@ export default [
       {
         path: '/user',
         routes: [
-          {
-            name: 'login',
-            path: '/user/login',
-            component: './user/Login',
-          },
+          // {
+          //   name: 'login',
+          //   path: '/user/login',
+          //   component: './user/Login',
+          // },
         ],
       },
       {
@@ -19,38 +19,28 @@ export default [
     ],
   },
   {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
+    path: '/homepage',
+    name: 'Homepage',
+    icon: 'home',
+    component: './Index',
   },
   {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
-    routes: [
-      {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Welcome',
-      },
-      {
-        component: './404',
-      },
-    ],
+    path: '/schedule',
+    name: 'Schedule',
+    icon: 'InsertRowAboveOutlined',
+    component: './Schedule/schedule.jsx',
+
   },
   {
-    name: 'list.table-list',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
+    path: '/about',
+    name: 'About Us',
+    hideInMenu: true,
+    component: './About/about.jsx',
+
   },
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/homepage',
   },
   {
     component: './404',
