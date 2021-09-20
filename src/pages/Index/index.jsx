@@ -2,6 +2,7 @@ import './index.less';
 import React from 'react';
 import { Button, Modal, List, Row, Col } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import Calendar from './components/calendar';
 export default function () {
   const [availableCourse, setAvailableCourse] = React.useState([]);
   const [selCourse, setSelCourse] = React.useState([]);
@@ -37,6 +38,7 @@ export default function () {
           />
         </Col>
       </Row>
+      <Calendar />
     </div>
   );
 }
