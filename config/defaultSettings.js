@@ -12,6 +12,7 @@ const Settings = {
   // fixSiderbar: true,
   // colorWeak: false,
   "title": 'AutoSchedule',
+  'logo': false,
   // pwa: false,
   // logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   // iconfontUrl: '',

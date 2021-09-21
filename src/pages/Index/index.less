@@ -1,4 +1,45 @@
 @import '~antd/lib/style/themes/default.less';
 .homepage {
-    
+   .list-item {
+       display: flex;
+       justify-content: space-between;
+       line-height: 2rem;
+       padding: 0 1rem;
+       &[index="0"] {
+        background-color: rgba(123, 88, 199, 0.1);
+       }
+
+       &[index="1"] {
+
+    }
+    .anticon-minus {
+        line-height: 2rem;
+        font-size: large;
+        color: #6e6969;
+    }
+   } 
+
+   .ant-list-header>div>span {
+       
+           font-weight: 400;
+           font-size: 1.2rem;
+       
+   }
+   .ant-list-header {
+       button {
+           border-radius: 1rem;
+           border: rgb(193, 174, 241) 1px solid;
+           color: rgba(114, 86, 184, 0.883);
+           &:hover {
+            background: rgba(114, 86, 184, 0.883);
+            color: white;
+        }
+        //    background-color: rgba(204, 190, 238, 0.678)
+       }
+       
+   }
+   .anticon svg {
+       font-size: 1.5rem;
+    color: rgb(220, 212, 240)
+   }
 }

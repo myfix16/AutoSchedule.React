@@ -1,22 +1,26 @@
 export default [
+  // {
+  //   path: '/',
+  //   layout: false,
+  //   routes: [
+  //     {
+  //       path: '/user',
+  //       routes: [
+  //         // {
+  //         //   name: 'login',
+  //         //   path: '/user/login',
+  //         //   component: './user/Login',
+  //         // },
+  //       ],
+  //     },
+  //     {
+  //       component: './404',
+  //     },
+  //   ],
+  // },
   {
-    path: '/user',
-    layout: false,
-    routes: [
-      {
-        path: '/user',
-        routes: [
-          // {
-          //   name: 'login',
-          //   path: '/user/login',
-          //   component: './user/Login',
-          // },
-        ],
-      },
-      {
-        component: './404',
-      },
-    ],
+    path: '/',
+    redirect: '/homepage',
   },
   {
     path: '/homepage',
@@ -27,6 +31,7 @@ export default [
   {
     path: '/schedule',
     name: 'Schedule',
+    hideInMenu: true,
     icon: 'InsertRowAboveOutlined',
     component: './Schedule/schedule.jsx',
 
@@ -38,10 +43,7 @@ export default [
     component: './About/about.jsx',
 
   },
-  {
-    path: '/',
-    redirect: '/homepage',
-  },
+
   {
     component: './404',
   },
