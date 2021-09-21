@@ -4,6 +4,7 @@
 export default function access(initialState) {
   const { currentUser } = initialState || {};
   return {
+    // canAdmin: false
     canAdmin: currentUser && currentUser.access === 'admin',
   };
 }
