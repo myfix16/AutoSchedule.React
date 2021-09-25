@@ -1,45 +1,65 @@
 @import '~antd/lib/style/themes/default.less';
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.2rem 0;
+  padding: 0 1rem;
+  line-height: 2rem;
+  // &[index="0"] {
+  background-color: rgba(123, 88, 199, 0.1);
+  // }
+
+  // &[index="1"] {
+
+  //  }
+  .anticon-minus,
+  .anticon-plus {
+    color: #6e6969;
+    font-size: large;
+    line-height: 2rem;
+  }
+}
+
 .homepage {
-   .list-item {
-       display: flex;
-       justify-content: space-between;
-       line-height: 2rem;
-       padding: 0 1rem;
-       &[index="0"] {
-        background-color: rgba(123, 88, 199, 0.1);
-       }
-
-       &[index="1"] {
-
+  .ant-list-header > div > span {
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+  .avaSched-item {
+    background-color: white;
+    // color: rgba(114, 86, 184, 0.883);
+    font-weight: 600;
+    margin: 0.5rem 0;
+    // border-radius: 0.7rem;
+    // border-style: acos();
+    border-left: 0.5rem groove rgb(220, 212, 240);
+  }
+  //    .ant-list-header {
+  button {
+    color: rgba(114, 86, 184, 0.883);
+    border: rgb(193, 174, 241) 1px solid;
+    border-radius: 1rem;
+    &:hover {
+      color: white;
+      background: rgba(114, 86, 184, 0.883);
     }
-    .anticon-minus {
-        line-height: 2rem;
-        font-size: large;
-        color: #6e6969;
-    }
-   } 
+    //    background-color: rgba(204, 190, 238, 0.678)
+  }
 
-   .ant-list-header>div>span {
-       
-           font-weight: 400;
-           font-size: 1.2rem;
-       
-   }
-   .ant-list-header {
-       button {
-           border-radius: 1rem;
-           border: rgb(193, 174, 241) 1px solid;
-           color: rgba(114, 86, 184, 0.883);
-           &:hover {
-            background: rgba(114, 86, 184, 0.883);
-            color: white;
-        }
-        //    background-color: rgba(204, 190, 238, 0.678)
-       }
-       
-   }
-   .anticon svg {
-       font-size: 1.5rem;
-    color: rgb(220, 212, 240)
-   }
+  //    }
+  .anticon svg {
+    color: rgb(220, 212, 240);
+    font-size: 1.5rem;
+  }
+
+  .selected-course {
+    .ant-list-items {
+      min-height: 10rem;
+      max-height: 20rem;
+      overflow-y: scroll;
+    }
+  }
+  .ant-modal-body {
+    padding: 0 24px;
+  }
 }
