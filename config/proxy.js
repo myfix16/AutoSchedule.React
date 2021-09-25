@@ -9,7 +9,7 @@
 export default {
   dev: {
     '/api/': {
-      target: 'https://preview.pro.ant.design',
+      target: 'https://api-autoschedule.azurewebsites.net',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
