@@ -1,47 +1,69 @@
 import './index.less';
 import React from 'react';
-import { Button, Modal, List, Row, Col, Popover, message } from 'antd';
+import { Button, Modal, List, Row, Col, Popover, message, Input } from 'antd';
 import { CheckCircleFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Calendar from './components/calendar';
 import { genSchedules, getAvailableCourse } from '@/services/scheduler';
+import $ from 'jquery';
 
 export default function () {
   const [availableCourse, setAvailableCourse] = React.useState([]);
   const [avaSchedule, setAvaSchedule] = React.useState([]);
   const [addModal, setAddModal] = React.useState(false);
-  const [currentSchedule, setCurrentSchedule] = React.useState({})
+  const [currentSchedule, setCurrentSchedule] = React.useState({});
   const handleAddCourses = () => {
-    setAddModal(true)
+    setAddModal(true);
   };
-  const submit = ()=>{
+
+  const InputRef = React.createRef('');
+
+  React.useEffect(() => {
+    if (addModal) {
+      cancelFilter();
+    }
+  }, [addModal]);
+  const filter = (text) => {
+    var condition = text.toUpperCase();
+    var lis = $('.availableCourseList .ant-list-items div');
+    var matchingList = lis.filter(function (i, div) {
+      var list_item_text = $(div).attr('id');
+      return ~list_item_text.indexOf(condition);
+    });
+
+    lis.hide();
+    matchingList.show();
+  };
+
+  const cancelFilter = () => {
+    var lis = $('.availableCourseList .ant-list-items div');
+    lis.show();
+  };
+  const submit = () => {
     let body = [];
     for (let course of availableCourse) {
       if (course.status === 1) {
         body.push({
-          "name": course.name,
-          "priority": 0
-        })
+          name: course.name,
+          priority: 0,
+        });
       }
-     
     }
 
-    genSchedules(body).then(res=>{
+    genSchedules(body).then((res) => {
       setAvaSchedule(res);
       if (res.length === 0) {
-        message.warning("There are no available schedules! Please Modify your selected courses!")
+        message.warning('There are no available schedules! Please Modify your selected courses!');
+      } else {
+        message.success(`There are ${res.length} available schedules!`);
       }
-      else {
-        message.success(`There are ${res.length} available schedules!`)
-      }
-    })
-  }
+    });
+  };
 
   React.useEffect(() => {
     getAvailableCourse().then((res) => {
-      // console.log(res)
       let data = [];
       for (let course of res) {
-        data.push({'name': course, 'status': 0})
+        data.push({ name: course, status: 0 });
       }
       setAvailableCourse(data);
     });
@@ -53,7 +75,8 @@ export default function () {
         <Col span={18} className="selected-course" style={{ borderRight: '1px solid #F0F0F0' }}>
           {/* <div className="available-course btn">
           </div> */}
-          <List className="selected-course"
+          <List
+            className="selected-course"
             header={
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Selected Courses</span>
@@ -62,21 +85,23 @@ export default function () {
             }
             // dataSource={selCourse}
             dataSource={availableCourse}
-            renderItem={(item, index) => (
-              item.status === 1 && <div className="list-item" id={item.name} index={`${index % 2}`}>
-                <span>{item.name}</span>
-                <Popover content={`Remove ${item.name}`}>
-                  <MinusOutlined
-                    onClick={() => {
-                      // removeSelCourse(item, index);
-                      let data = availableCourse;
-                      data[index] = {"name": item.name, "status": 0};
-                      setAvailableCourse([...data])
-                    }}
-                  />
-                </Popover>
-              </div>
-            )}
+            renderItem={(item, index) =>
+              item.status === 1 && (
+                <div className="list-item" id={item.name} index={`${index % 2}`}>
+                  <span>{item.name}</span>
+                  <Popover content={`Remove ${item.name}`}>
+                    <MinusOutlined
+                      onClick={() => {
+                        // removeSelCourse(item, index);
+                        let data = availableCourse;
+                        data[index] = { name: item.name, status: 0 };
+                        setAvailableCourse([...data]);
+                      }}
+                    />
+                  </Popover>
+                </div>
+              )
+            }
           />
         </Col>
         <Col span={6} className="available-schedule">
@@ -93,43 +118,77 @@ export default function () {
               </div>
             }
             dataSource={avaSchedule}
-            renderItem={(item, index) => <div className="list-item avaSched-item" id={item.id}>
-              <span>Schedule &nbsp; #{item.id}</span>
-              <Button onClick={()=>{
-        
-                Modal.confirm({
-                  title: <span>Schedule Info</span>,
-                  icon: null,
-                  content: JSON.stringify(item)
-                })
+            renderItem={(item, index) => (
+              <div className="list-item avaSched-item" id={item.id}>
+                <span>Schedule &nbsp; #{item.id}</span>
+                <Button
+                  onClick={() => {
+                    $('html,body').animate({ scrollTop: $('#calendar').offset().top }, 300);
+                    // Modal.confirm({
+                    //   title: <span>Schedule Info</span>,
+                    //   icon: null,
+                    //   content: JSON.stringify(item)
+                    // })
 
-                setCurrentSchedule(item);
-              }}>Check</Button>
-            </div>}
+                    setCurrentSchedule(item);
+                  }}
+                >
+                  Check
+                </Button>
+              </div>
+            )}
           />
         </Col>
       </Row>
-      <Button className="genSched" onClick={()=>submit()}>Generate My Schedule</Button>
-      <Calendar currentSchedule={currentSchedule}/>
+      <Button className="genSched" onClick={() => submit()}>
+        Generate My Schedule
+      </Button>
+      <Calendar currentSchedule={currentSchedule} />
       <Modal
-      onOk = {()=>setAddModal(false)}
-      title="Available Course"
-      visible = {addModal}
-      onCancel = {()=>setAddModal(false)}
+        onOk={() => setAddModal(false)}
+        title={
+          <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'nowrap' }}>
+            <span>
+              Available Courses{' '}
+              <a style={{ fontSize: '0.7rem', fontWeight: '400' }} onClick={() => cancelFilter()}>
+                {' '}
+                ALL{' '}
+              </a>
+            </span>
+            <Input.Search
+              ref={InputRef}
+              style={{ width: '18rem', paddingRight: '2rem' }}
+              placeholder="Search by course's name"
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') filter(InputRef.current.state.value);
+              }}
+              onSearch={() => {
+                filter(InputRef.current.state.value);
+              }}
+            ></Input.Search>
+          </div>
+        }
+        visible={addModal}
+        onCancel={() => setAddModal(false)}
       >
         <div>
-          <List        
+          <List
+            className="availableCourseList"
             dataSource={availableCourse}
-            renderItem={(item, index) => (
-              !item.status && <div className="list-item" index={`${index % 2}`} id={item.name}>
-                <span>{item.name}</span>
-                <PlusOutlined onClick={()=>{
-                  let data = availableCourse;
-                  data[index] = {"name": item.name, "status": 1};
-                  setAvailableCourse([...data]);
-                }}/>
-              </div>
-            )}
+            renderItem={(item, index) =>
+              !item.status && (
+                <div className="list-item" index={`${index % 2}`} id={item.name}>
+                  <span>{item.name}</span>
+                  <PlusOutlined
+                    onClick={() => {
+                      let data = availableCourse;
+                      data[index] = { name: item.name, status: 1 };
+                      setAvailableCourse([...data]);
+                    }}
+                  />
+                </div>
+              )
+            }
             style={{ maxHeight: '15rem', overflowY: 'scroll' }}
             // loading
           ></List>
