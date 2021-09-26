@@ -25,6 +25,26 @@
     <link rel="icon" href="<%= context.config.publicPath +'favicon.ico'%>" type="image/x-icon" />
   </head>
   <body>
+    <script>
+      (function(doc, win) {
+        var docEl = doc.documentElement;
+        resizeEvt = 'orientationchange' in window ? 'orientationchange': "resize"
+        recalc = function (){
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+
+          if (clientWidth > 1440) clientWidth = 1440;
+          document.getElementById('root').style.fontSize =16 * (clientWidth / 1440) + 'px'; 
+          docEl.style.fontSize = 16 * (clientWidth / 1440) + 'px'
+
+        }
+
+        if (!doc.addEventListener) return;
+
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window)
+    </script>
     <noscript>
       <div class="noscript-container">
         Hi there! Please
@@ -38,12 +58,12 @@
     </noscript>
     <div id="root">
       <style>
-        html,
         body,
         #root {
           height: 100%;
           margin: 0;
           padding: 0;
+          /* font-size: 1rem; */
         }
         #root {
           background-repeat: no-repeat;

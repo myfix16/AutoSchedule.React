@@ -1,15 +1,49 @@
+@CELL_WIDTH: 8rem;
+@CELL_HEIGHT: 2rem;
+
 table {
+  // border: none;
+  border-collapse: collapse;
   margin: 0 auto 0 auto;
   border: rgba(104, 58, 201, 0.2);
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   thead {
-    border-top: rgba(104, 58, 201, 0.2);
-    height: 2.4rem;
+    height: 2*@CELL_HEIGHT;
     background-color: rgba(104, 58, 201, 0.2);
   }
   td {
-    width: 8rem;
-    line-height: 1.2rem;
+    // border-collapse: collapse;
+    width: @CELL_WIDTH;
+    line-height: @CELL_HEIGHT;
+    height: @CELL_HEIGHT;
     text-align: center;
+    padding: 0;
+    // margin: 0;
+    border: 1px solid rgba(104, 58, 201, 0.2);
   }
+}
+.calendar-table {
+  position: relative;
+}
+
+.skeleton {
+  position: absolute;
+  top: 2*@CELL_HEIGHT;
+  left: @CELL_WIDTH;
+  width: 5*@CELL_WIDTH;
+}
+
+.block {
+  // border-left:1px solid rgba(104, 58, 201, 0.2);
+  display: table-cell;
+  border-radius: 0.3rem;
+  position: absolute;;
+  width: @CELL_WIDTH;
+  text-align: center;
+  padding: 0.2rem;
+  z-index: 3;
+  box-shadow: rgba(157, 157, 158, 0.438) 3px 3px 6px 0px inset, rgba(126, 126, 126, 0.2) -3px -3px 6px 1px inset;
+  background-color:snow 
+  
 }
