@@ -7,7 +7,7 @@ import "./calendar.less"
 
 export default function Calendar(props) {
   return (
-    <div className="schedule">
+    <div className="schedule" id="calendar">
         <Divider />
         {/* <div style={{marginBottom: "0.5rem"}}>
         <Divider />
