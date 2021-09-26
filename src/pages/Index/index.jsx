@@ -9,6 +9,7 @@ export default function () {
   const [availableCourse, setAvailableCourse] = React.useState([]);
   const [avaSchedule, setAvaSchedule] = React.useState([]);
   const [addModal, setAddModal] = React.useState(false);
+  const [currentSchedule, setCurrentSchedule] = React.useState({})
   const handleAddCourses = () => {
     setAddModal(true)
   };
@@ -101,13 +102,15 @@ export default function () {
                   icon: null,
                   content: JSON.stringify(item)
                 })
+
+                setCurrentSchedule(item);
               }}>Check</Button>
             </div>}
           />
         </Col>
       </Row>
       <Button className="genSched" onClick={()=>submit()}>Generate My Schedule</Button>
-      <Calendar />
+      <Calendar currentSchedule={currentSchedule}/>
       <Modal
       onOk = {()=>setAddModal(false)}
       title="Available Course"
