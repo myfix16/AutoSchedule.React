@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Modal, List, Row, Col, Popover, message, Input } from 'antd';
 import { CheckCircleFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Calendar from './components/calendar';
+import { PageLoading } from '@ant-design/pro-layout';
 import { genSchedules, getAvailableCourse } from '@/services/scheduler';
 import $ from 'jquery';
 
@@ -10,6 +11,7 @@ export default function () {
   const [availableCourse, setAvailableCourse] = React.useState([]);
   const [avaSchedule, setAvaSchedule] = React.useState([]);
   const [addModal, setAddModal] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [currentSchedule, setCurrentSchedule] = React.useState({});
   const handleAddCourses = () => {
     setAddModal(true);
@@ -66,11 +68,14 @@ export default function () {
         data.push({ name: course, status: 0 });
       }
       setAvailableCourse(data);
+      setLoading(false);
     });
   }, []);
 
   return (
-    <div className="page homepage">
+    <div>
+      {loading ? <PageLoading /> :    <div className="page homepage">
+      
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col span={18} className="selected-course" style={{ borderRight: '1px solid #F0F0F0' }}>
           {/* <div className="available-course btn">
@@ -195,5 +200,9 @@ export default function () {
         </div>
       </Modal>
     </div>
+  
+      }
+    </div>
+
   );
 }
