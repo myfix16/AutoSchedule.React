@@ -1,10 +1,12 @@
 @import '~antd/lib/style/themes/default.less';
 .list-item {
   display: flex;
+  font-size: 1rem;
   justify-content: space-between;
   margin: 0.2rem 0;
   padding: 0 1rem;
-  line-height: 2rem;
+  line-height: 2.4rem;
+  height: 2.4rem;
   // &[index="0"] {
   background-color: rgba(123, 88, 199, 0.1);
   // }
@@ -12,18 +14,36 @@
   // &[index="1"] {
 
   //  }
-  .anticon-minus,
-  .anticon-plus {
-    color: #6e6969;
-    font-size: large;
-    line-height: 2rem;
+  // .anticon-minus,
+  // .anticon-plus {
+  //   color: #6e6969;
+  //   font-size: large;
+  //   line-height: 2rem;
+  //   height: 2.4rem;
+  // }
+  .anticon svg {
+    color: rgb(220, 212, 240);
+    font-size: 1.5rem;
+    height: 2.4rem;
   }
+
 }
+
+
 
 .homepage {
   .ant-list-header > div > span {
     font-weight: 400;
     font-size: 1.2rem;
+  }
+  .anticon svg {
+    color: rgb(220, 212, 240);
+    font-size: 1.5rem;
+    height: 2.4rem;
+  }
+
+  .genSched {
+
   }
   .avaSched-item {
     background-color: white;
@@ -47,10 +67,20 @@
   }
 
   //    }
-  .anticon svg {
-    color: rgb(220, 212, 240);
-    font-size: 1.5rem;
+  .priority-select {
+    padding-right: 1rem;
+    width: 6rem;
+    .ant-select-selector {
+      background-color: snow;
+      // border: none;
+      font-size: 0.6rem;
+      height: 100%;
+      line-height: 2rem;
+      color: #6042c2;
+    }
+
   }
+
 
   .selected-course {
     .ant-list-items {
@@ -62,4 +92,7 @@
   .ant-modal-body {
     padding: 0 24px;
   }
+}
+.priority-option {
+  font-size: 0.6rem;
 }
