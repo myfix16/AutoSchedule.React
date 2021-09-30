@@ -1,11 +1,12 @@
 import './index.less';
 import React from 'react';
-import { Button, Modal, List, Row, Col, Popover, message, Input } from 'antd';
+import { Button, Modal, List, Row, Col, Popover, message, Input,Select } from 'antd';
 import { CheckCircleFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import Calendar from './components/calendar';
 import { PageLoading } from '@ant-design/pro-layout';
 import { genSchedules, getAvailableCourse } from '@/services/scheduler';
 import $ from 'jquery';
+import stringify from 'json-stringify-safe';
 
 export default function () {
   const [availableCourse, setAvailableCourse] = React.useState([]);
@@ -46,11 +47,14 @@ export default function () {
       if (course.status === 1) {
         body.push({
           name: course.name,
-          priority: 0,
+          priority: course.priority,
         });
       }
     }
-
+    if (body.length === 0) {
+      message.warning("Your Selected List is Empty!");
+      return;
+    }
     genSchedules(body).then((res) => {
       setAvaSchedule(res);
       if (res.length === 0) {
@@ -65,7 +69,7 @@ export default function () {
     getAvailableCourse().then((res) => {
       let data = [];
       for (let course of res) {
-        data.push({ name: course, status: 0 });
+        data.push({ name: course, status: 0, priority: 0 });
       }
       setAvailableCourse(data);
       setLoading(false);
@@ -93,17 +97,32 @@ export default function () {
             renderItem={(item, index) =>
               item.status === 1 && (
                 <div className="list-item" id={item.name} index={`${index % 2}`}>
-                  <span>{item.name}</span>
+                  <div>
+                    <Select className="priority-select" value={item.priority} showArrow={false} onChange={(e)=>{
+                      let data = availableCourse;
+                      data[index] = {...data[index], priority: e};
+                      console.log(stringify(data[index]));
+                      setAvailableCourse([...data]);
+                      
+                    }}>
+                      <Select.Option className="priority-option" value={0}>Required</Select.Option>
+                      <Select.Option className="priority-option" value={1}>Preferred</Select.Option>
+                      <Select.Option className="priority-option" value={2}>Optional</Select.Option>
+                    </Select>
+                    <span>{item.name}</span>
+
+                    </div>
                   <Popover content={`Remove ${item.name}`}>
                     <MinusOutlined
                       onClick={() => {
                         // removeSelCourse(item, index);
                         let data = availableCourse;
-                        data[index] = { name: item.name, status: 0 };
+                        data[index] = { name: item.name, status: 0, priority: item.priority };
                         setAvailableCourse([...data]);
                       }}
                     />
                   </Popover>
+                
                 </div>
               )
             }
@@ -187,7 +206,7 @@ export default function () {
                   <PlusOutlined
                     onClick={() => {
                       let data = availableCourse;
-                      data[index] = { name: item.name, status: 1 };
+                      data[index] = { name: item.name, status: 1, priority: item.priority };
                       setAvailableCourse([...data]);
                     }}
                   />

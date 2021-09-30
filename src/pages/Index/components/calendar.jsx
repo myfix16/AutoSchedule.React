@@ -311,7 +311,7 @@ const Block = (props) => {
     let endMin = endTime.hour*60 + endTime.minute;
     let diffMin = endMin -startMin;
 
-    return diffMin/30 * 2  + 'rem'
+    return diffMin/30 * 1.5  + 'rem'
   }
 
   function calTop(startTime) {
@@ -323,7 +323,7 @@ const Block = (props) => {
 
     // let startMin = 10* 60 + 0;
     // Math.floor((startMin-topMin)/30)*borderWidthRem+
-    return (startMin - topMin)/30*2 + Math.floor((startMin-topMin)/30)*borderWidthRem+ 'rem';
+    return (startMin - topMin)/30*1.5 + Math.floor((startMin-topMin)/30)*borderWidthRem+ 'rem';
 
   }
 
@@ -349,7 +349,7 @@ const Block = (props) => {
         left: calLeft(item.dayOfWeek)
       }}
       >
-        <span className="session-name">{session.name}</span>
+        <span className="session-name" style={{lineHeight: calHeight(item.startTime, item.endTime)}}>{session.name}</span>
         {/* <div className="startTime" style={{fontSize: "0.5rem"}}> <span> Start Time: {item.startTime.hour + ' : ' + item.startTime.minute}</span></div>
       <div className="endTime" style={{fontSize: "0.5rem"}}> <span> End Time : {item.endTime.hour + ' : ' + item.endTime.minute}</span></div> */}
       </div>
